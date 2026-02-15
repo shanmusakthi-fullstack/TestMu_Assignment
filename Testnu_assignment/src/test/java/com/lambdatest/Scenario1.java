@@ -12,17 +12,29 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class Scenario1 {
+	
+	WebDriver driver = null;
+	@BeforeClass
+	public void setup() {
+		driver = new ChromeDriver();
+	    driver.manage().window().maximize();
+	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+	}
+	
+	
 	@Test
 	public void assignment1() {
-		WebDriver driver = new ChromeDriver();
+		
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 		driver.get("https://www.testmuai.com/selenium-playground/");
-		driver.findElement(By.xpath("//a[.='Simple Form Demo']")).click();
+		driver.findElement(By.linkText("Simple Form Demo")).click();
 		//String actualTitle =  driver.getTitle();
 		//String expectedTitle = "simple-form-demo";
 		//Assert.assertEquals(actualTitle,expectedTitle);
@@ -40,9 +52,10 @@ public class Scenario1 {
 		WebElement textlabel = driver.findElement(By.xpath("//p[@id = 'message']"));
 		String Textmsg = textlabel.getText();
 		Assert.assertEquals(Textmsg,"Welcome to TestMu A" );
-		
-		driver.quit();
-
 	}
 
+	@AfterMethod
+	public void teardown() {
+	    driver.quit();
+	}
 }

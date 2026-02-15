@@ -21,7 +21,7 @@ public class Scenario1 {
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 		driver.get("https://www.testmuai.com/selenium-playground/");
-		driver.findElement(By.xpath("//a[.='Simple Form Demo']")).click();
+		driver.findElement(By.linkText("Simple Form Demo")).click();
 		String actualURL =  driver.getCurrentUrl();
 		Assert.assertTrue(actualURL.contains("simple-form-demo"));
 		//String message = "Welcome to TestMu A";
