@@ -31,8 +31,6 @@ public class Scenario1 {
 	@Test
 	public void assignment1() {
 		
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 		driver.get("https://www.testmuai.com/selenium-playground/");
 		driver.findElement(By.linkText("Simple Form Demo")).click();
 		//String actualTitle =  driver.getTitle();

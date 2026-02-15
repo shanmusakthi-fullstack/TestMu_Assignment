@@ -8,16 +8,23 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class Scenario2 {
 
+	WebDriver driver = null;
+	@BeforeClass
+	public void setup() {
+		driver = new ChromeDriver();
+	    driver.manage().window().maximize();
+	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(100));
+	}
 	@Test
 	public void assignment2() {
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(100));
+
 		driver.get("https://www.testmuai.com/selenium-playground/");
 		driver.findElement(By.xpath("//a[.='Drag & Drop Sliders']")).click();
 		WebElement slider = driver.findElement(By.xpath("//h4[.=' Default value 15']/following::input[1]"));
@@ -39,9 +46,12 @@ public class Scenario2 {
 			
 		}
 				
-		driver.quit();		
-		
+			
 		
 	}
 
+	@AfterMethod
+	public void teardown() {
+	    driver.quit();
+	}
 }

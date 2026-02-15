@@ -12,27 +12,29 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class Scenario1_2browser {
 	static WebDriver driver = null;
 	
+	@BeforeMethod
+	@Parameters("browsername")
+	public void setup(String browsername) {
+	    if(browsername.equalsIgnoreCase("chrome")) {
+	        driver = new ChromeDriver();
+	    } else if(browsername.equalsIgnoreCase("firefox")) {
+	        driver = new FirefoxDriver();
+	    }
+	    driver.manage().window().maximize();
+	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+	}
 	
 	@Test
-	@Parameters("browsername")
-	public void assignment1(String browsername) {
+		public void assignment1(String browsername) {
 		
-		if(browsername.equalsIgnoreCase("chrome")) {
-		driver = new ChromeDriver();
-		}
-		
-		else if(browsername.equalsIgnoreCase("firefox")) {
-			driver = new FirefoxDriver();
-			}
-		
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 		driver.get("https://www.testmuai.com/selenium-playground/");
 		driver.findElement(By.xpath("//a[.='Simple Form Demo']")).click();
 		//String actualTitle =  driver.getTitle();
@@ -53,8 +55,12 @@ public class Scenario1_2browser {
 		String Textmsg = textlabel.getText();
 		Assert.assertEquals(Textmsg,"Welcome to TestMu A" );
 		
-		driver.quit();
-
+		
 	}
-
+	@AfterMethod
+	public void teardown() {
+	    
+	        driver.quit();
+	    
+	}
 }

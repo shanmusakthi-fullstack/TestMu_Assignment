@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite parallel="classes" name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
-  <test thread-count="5" parallel="classes" name="Test(failed)">
+<suite name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="ChromeTest(failed)">
+    <parameter name="browsername" value="chrome"/>
     <classes>
-      <class name="com.lambdatest.Scenario1">
+      <class name="com.lambdatest.Scenario1_2browser">
         <methods>
+          <include name="teardown"/>
+          <include name="setup"/>
           <include name="assignment1"/>
         </methods>
-      </class> <!-- com.lambdatest.Scenario1 -->
+      </class> <!-- com.lambdatest.Scenario1_2browser -->
     </classes>
-  </test> <!-- Test(failed) -->
+  </test> <!-- ChromeTest(failed) -->
+  <test thread-count="5" name="FirefoxTest(failed)">
+    <parameter name="browsername" value="firefox"/>
+    <classes>
+      <class name="com.lambdatest.Scenario1_2browser">
+        <methods>
+          <include name="teardown"/>
+          <include name="setup"/>
+          <include name="assignment1"/>
+        </methods>
+      </class> <!-- com.lambdatest.Scenario1_2browser -->
+    </classes>
+  </test> <!-- FirefoxTest(failed) -->
 </suite> <!-- Failed suite [Suite] -->

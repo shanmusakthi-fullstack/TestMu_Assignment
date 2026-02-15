@@ -11,15 +11,23 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class Scenario3 {
+	
+	WebDriver driver = null;
+	@BeforeClass
+	public void setup() {
+		driver = new ChromeDriver();
+	    driver.manage().window().maximize();
+	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+	}
 
 	@Test
 	public void assignment3() {
-		WebDriver driver = new ChromeDriver();
-		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
+
 		driver.get("https://www.testmuai.com/selenium-playground/");
 		driver.findElement(By.xpath("//a[.='Input Form Submit']")).click();
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
@@ -70,11 +78,15 @@ public class Scenario3 {
 		WebElement button1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[.='Submit']")));
 		button1.click();
 		
-		WebElement contactMsg = driver.findElement(By.xpath("//p[contains(text( ), 'Thanks')]"));
+		WebElement contactMsg = driver.findElement(By.xpath("//p[contains(text(), 'Thanks')]"));
 		String validationMessage = contactMsg.getText();
 		Assert.assertEquals(validationMessage, "Thanks for contacting us, we will get back to you shortly.");
 		
 
 	}
 
+	@AfterMethod
+	public void teardown() {
+	    driver.quit();
+	}
 }
